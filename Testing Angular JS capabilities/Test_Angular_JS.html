@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Angular JS
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+        <style>
+            input.ng-invalid {
+                background-color:pink;
+            }
+
+            input.ng-valid {
+                background-color:lightgreen;
+            }
+
+        </style>
+        <link rel="stylesheet" href="style.css"></link>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="myController">
+
+            <!-- Testing the routing in Angular JS -->
+            <p><a href="#/!inicio">Inicio</a></p>
+            <a href="#willSmith">Will Smith page</a>
+            <a href="#theRock">The Rock page</a>
+            <div ng-view></div> 
+
+            <!-- Testing the repeat function in Angular JS -->
+            <ul>
+                <li ng-repeat="person in persons">
+                    {{ "Person: Name-" + person.name + ", age-" + person.age + ", email-\"" + person.email + "\", country-" + person.country + "." }}
+                </li>
+            </ul>
+
+            <!-- Testing dropdown menu -->
+            <select title="brandSelector" ng-model="selectedBrand" ng-options="x for x in carBrands">
+
+            </select>
+
+            <h2>You selected: {{ selectedBrand }}</h2>
+
+            <br>
+
+            <select title="carSelector" ng-model="carSelected" ng-options="x for (x, y) in cars">
+
+            </select>
+
+            <h2>Car selected: {{ carSelected.model }}</h2>
+
+            <br>
+
+            <!-- Testing the filtering by a user input-->
+            <label for="city">Select city from the list</label>
+            <input id="city" ng-model="city" type="text">
+            <p ng-repeat="city in cities | filter : city">{{ city }}</p>
+
+            <!-- Testing the on click function in Angular JS -->
+            Hide the table: <input type="checkbox" ng-model="hideTheTable">
+            
+            <table id="table" ng-hide="hideTheTable">
+                <caption>Table of the names and countries of all the persons in the list</caption>
+                <thead>
+                    <th id="elemntsCount">Nº</th>
+                    <th id="name" ng-click="orderBy('name')">Name</th>
+                    <th id="country" ng-click="orderBy('country')">Country</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="info in persons | orderBy:order">
+                        <td>
+                            {{ $index + 1 }}
+                        </td>
+                        <td>
+                            {{ info.name }}
+                        </td>
+                        <td>
+                            {{ info.country | uppercase }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br><br>
+
+            <h3>{{ serverResponse }}</h3>
+
+            <form novalidate name="namesForm">
+                <label for="name">Enter your first name:</label>
+                <br>
+                <input name="name" id="name" type="text" ng-model="firstName" required>
+                <span ng-show="namesForm.name.$error.required">The name is required!</span>
+                <br><br>
+                <label for="surname">Enter your family name:</label>
+                <br>
+                <input name="surname" id="surname" type="text" ng-model="lastName" required>
+                <span ng-show="namesForm.surname.$error.required">The surname is required!</span>
+                <br><br>
+                <button id="Enter" ng-click="showFullName()" ng-disabled="namesForm.name.$untouched">Enter</button>
+                <button id="reset" ng-click="resetInputBoxes()">Reset</button>
+            </form>
+
+            <h3 id="fullName"></h3>
+
+        </div>
+
+        <script src="controller.js">
+            
+        </script>
+    </body>
+</html>

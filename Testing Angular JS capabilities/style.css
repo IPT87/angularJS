@@ -1,0 +1,24 @@
+#table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+  }
+
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+table {
+    transition: all linear 1.0s;
+}
+  
+table.ng-hide {
+    opacity: 0;
+}
